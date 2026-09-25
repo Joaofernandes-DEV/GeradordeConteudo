@@ -215,15 +215,16 @@ As escolhas que mais definiram o resultado:
 .
 ├── README.md                              # Este documento
 ├── LOG.md                                 # Diário de engenharia: erros, acertos e decisões
-├── briefing-radar-conteudo-dra-simone.md  # Especificação original do projeto
-├── ProcedimentosDraSimone.txt             # Insumo: catálogo de procedimentos da clínica
-├── novaalteração.txt                      # Insumo: pedido de ampliação dos segmentos
-├── MIGRACAO-MAKE.md                       # Estudo de alternativa (Make) — não adotado
 ├── apps-script/                           # ★ Implementação em produção
 │   ├── Codigo.gs                          # Sistema completo
 │   ├── Prompts.gs                         # Os três prompts calibrados
 │   ├── PASSO-A-PASSO.md                   # Guia de instalação detalhado
 │   └── INSTALACAO.md                      # Resumo da instalação
+├── docs/                                  # Insumos da cliente e estudos
+│   ├── briefing.md                        # Especificação original aprovada
+│   ├── procedimentos-clinica.txt          # Catálogo de procedimentos da clínica
+│   ├── solicitacao-novos-segmentos.txt    # Pedido de ampliação das buscas
+│   └── migracao-make.md                   # Estudo de alternativa (Make) — não adotado
 └── backup/                                # Lógica preservada da versão n8n
     ├── LOGICA-COMPLETA.md                 # Toda a lógica, independente de plataforma
     └── dados/
