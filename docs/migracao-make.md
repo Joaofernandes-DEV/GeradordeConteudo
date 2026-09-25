@@ -1,6 +1,6 @@
 # Migração do Radar de Conteúdo — n8n → Make
 
-> **Situação:** o trial do n8n Cloud encerrou e a instância foi suspensa. A API já responde `Not Found`, então não houve como exportar o workflow. Toda a lógica foi reconstruída em `backup/LOGICA-COMPLETA.md` e os dados das tabelas em `backup/dados/*.csv`.
+> **Situação:** o trial do n8n Cloud encerrou e a instância foi suspensa. A API já responde `Not Found`, então não houve como exportar o workflow. Toda a lógica foi reconstruída em `../backup/LOGICA-COMPLETA.md` e os dados das tabelas em `../backup/dados/*.csv`.
 >
 > Este guia é o passo a passo para reconstruir o sistema no Make.
 
@@ -107,9 +107,9 @@ Estimativa: **~28 a 35 operações por execução**, ou seja, cerca de **750 a 9
 
 ### 5.1 Criar os três data stores
 
-Em **Data stores › Add data store**, criar as três estruturas descritas em `backup/LOGICA-COMPLETA.md`, seção 2.
+Em **Data stores › Add data store**, criar as três estruturas descritas em `../backup/LOGICA-COMPLETA.md`, seção 2.
 
-Para popular `radar_evergreen` e `radar_base_clinica`, use os CSVs em `backup/dados/`. O Make não importa CSV direto em data store — a forma mais rápida é criar um cenário temporário: **Google Sheets › Search rows → Data store › Add a record**, rodar uma vez e apagar o cenário. (Cada linha inserida consome 1 operação: são 50 no total.)
+Para popular `radar_evergreen` e `radar_base_clinica`, use os CSVs em `../backup/dados/`. O Make não importa CSV direto em data store — a forma mais rápida é criar um cenário temporário: **Google Sheets › Search rows → Data store › Add a record**, rodar uma vez e apagar o cenário. (Cada linha inserida consome 1 operação: são 50 no total.)
 
 > ⚠️ Confirme o limite de armazenamento de data store do seu plano. As três tabelas são pequenas (poucos KB), mas o histórico cresce ~26 linhas/mês.
 
@@ -143,7 +143,7 @@ Em seguida, **Array aggregator** (source: o módulo 3), agregando o campo `tema`
 
 ### 5.5 Coleta (módulos 5 a 8)
 
-**Tools › Set variable** `feeds` com o array das 10 URLs. As consultas estão em `backup/LOGICA-COMPLETA.md`, seção 3.2 — lembre-se de aplicar *URL encode* nos termos com espaço e acento.
+**Tools › Set variable** `feeds` com o array das 10 URLs. As consultas estão em `../backup/LOGICA-COMPLETA.md`, seção 3.2 — lembre-se de aplicar *URL encode* nos termos com espaço e acento.
 
 Formato do valor: `{{ split("url1,url2,url3..."; ",") }}` ou monte via JSON › Create JSON.
 
@@ -171,7 +171,7 @@ Para o ranking de veículos reconhecidos, o caminho mais simples no Make é **n�
 
 **Google Gemini AI › Create a completion:**
 - **Model:** o Flash mais recente disponível na lista
-- **System instruction:** o prompt de `backup/LOGICA-COMPLETA.md`, seção 4.1
+- **System instruction:** o prompt de `../backup/LOGICA-COMPLETA.md`, seção 4.1
 - **Temperature:** `0.2`
 - **User message:**
 
@@ -185,7 +185,7 @@ Itens coletados hoje (avalie cada um pelo índice na lista):
 {{ toString(9.candidatos) }}
 ```
 
-> ⚠️ **Não inclua os links** no texto enviado. As URLs do Google News têm 500+ caracteres e já causaram estouro de limite de tokens no Groq (README, seção 9.1).
+> ⚠️ **Não inclua os links** no texto enviado. As URLs do Google News têm 500+ caracteres e já causaram estouro de limite de tokens no Groq (ver `LOG.md`, erro E1).
 
 Se a app nativa do Gemini não estiver disponível, use **HTTP › Make a request**:
 - `POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=SUA_CHAVE`
@@ -341,7 +341,7 @@ function doPost(e) {
 }
 ```
 
-Dentro de cada função entra o código correspondente de `backup/LOGICA-COMPLETA.md`, com duas adaptações: trocar `$input.all()` pelos dados recebidos em `req`, e retornar objeto simples em vez de `[{ json: ... }]`.
+Dentro de cada função entra o código correspondente de `../backup/LOGICA-COMPLETA.md`, com duas adaptações: trocar `$input.all()` pelos dados recebidos em `req`, e retornar objeto simples em vez de `[{ json: ... }]`.
 
 Publique em **Implantar › Nova implantação › App da Web**, com acesso "qualquer pessoa" e a URL protegida por um token no corpo da requisição.
 
@@ -363,7 +363,7 @@ docker run -d --name n8n -p 5678:5678 \
 
 Alternativas sem servidor próprio: Railway, Render ou Fly.io têm templates de n8n com poucos cliques (custo aproximado de US$ 5/mês, ou grátis dentro da cota inicial).
 
-O workflow precisaria ser recriado a partir do `backup/LOGICA-COMPLETA.md`, mas sem nenhuma adaptação de lógica — é copiar e colar em nós Code. As Data Tables existem também na versão self-hosted.
+O workflow precisaria ser recriado a partir do `../backup/LOGICA-COMPLETA.md`, mas sem nenhuma adaptação de lógica — é copiar e colar em nós Code. As Data Tables existem também na versão self-hosted.
 
 ---
 
