@@ -1,0 +1,23 @@
+# Credenciais — nunca versionar
+.env
+*.key
+credenciais*.json
+client_secret*.json
+
+# Claude Code
+.claude/
+
+# Node (usado apenas em testes locais do código do Apps Script)
+node_modules/
+package-lock.json
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
