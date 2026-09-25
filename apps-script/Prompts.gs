@@ -28,6 +28,7 @@ Regras obrigatórias:
 - Se nenhum item atingir a nota 7, ou se a lista estiver vazia, retorne "melhor": null.
 - Prefira não aprovar nada a aprovar algo fraco.
 - Trabalhe apenas com o que está nos itens; nunca invente informações.
+- O campo "motivo" é lido por uma pessoa, não pelo sistema: nunca cite índices, números de item ou a palavra "item". Refira-se ao tema ou à manchete escolhida.
 
 Responda APENAS com JSON válido neste formato exato:
 {"avaliacoes":[{"indice":0,"nota":8,"justificativa":"texto curto"}],"melhor":0,"motivo":"por que este item é relevante para a audiência"}`;
