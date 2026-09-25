@@ -6,6 +6,14 @@
 
 > Projeto em produção, construído para uma cliente real: uma biomédica esteta que precisava manter presença diária no Instagram sem tempo para pesquisar pauta entre atendimentos.
 
+<p align="center">
+  <img src="docs/exemplo-email-gerado.jpeg" alt="E-mail diário gerado pelo Radar, aberto no celular" width="340">
+</p>
+
+<p align="center">
+  <em>Pauta real entregue em 17/09/2026 — pilar Educação, a partir de uma matéria do Estadão sobre retinoides.</em>
+</p>
+
 ---
 
 ## Índice
