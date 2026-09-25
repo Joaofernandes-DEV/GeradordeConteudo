@@ -1,0 +1,33 @@
+categoria;item;descricao;ativo
+procedimento;Intradermoterapia;(Corporal) Aplicação de ativos diretamente na região tratada, usada em protocolos para gordura localizada, celulite e outros objetivos corporais.;true
+procedimento;Lipo Enzimática;(Corporal) Protocolo injetável com enzimas voltado à gordura localizada.;true
+procedimento;Protocolo de Emagrecimento;(Corporal) Acompanhamento com foco em redução de medidas, dentro de uma abordagem integrativa.;true
+procedimento;Protocolos Avançados para Celulite;(Corporal) Combinação de técnicas para melhorar o aspecto da celulite.;true
+procedimento;Protocolos Avançados para Flacidez;(Corporal) Técnicas voltadas à firmeza da pele do corpo.;true
+procedimento;Protocolos Avançados para Estrias;(Corporal) Tratamento para atenuar estrias.;true
+procedimento;Terapia Capilar;(Corporal/Capilar) Protocolos para queda de cabelo, fortalecimento dos fios e tratamento de alopecia.;true
+procedimento;Escleroterapia / PEIM (secagem de vasinhos);(Corporal) Aplicação para secar vasinhos das pernas.;true
+procedimento;Drenagem Linfática Manual;(Corporal) Massagem que estimula o sistema linfático e ajuda a reduzir inchaço e retenção.;true
+procedimento;Saúde Integrativa (análise metabólica, prescrição nutricional e suplementação);(Saúde) Avaliação metabólica com orientação nutricional e de suplementação, cuidando de dentro para fora.;true
+procedimento;Perfiloplastia;(Facial/Injetáveis) Harmonização do perfil do rosto, buscando equilíbrio e naturalidade.;true
+procedimento;Arquitetura Facial;(Facial/Injetáveis) Planejamento de contornos e proporções faciais de forma personalizada.;true
+procedimento;Preenchimento com Ácido Hialurônico;(Facial/Injetáveis) Reposição de volume e definição de contornos com resultado natural.;true
+procedimento;Toxina Botulínica (Botox);(Facial/Injetáveis) Suavização de linhas de expressão e prevenção de rugas.;true
+procedimento;Bioestimuladores de Colágeno;(Facial/Injetáveis) Estímulo à produção natural de colágeno para firmeza da pele.;true
+procedimento;Fios de PDO (sustentação e estímulo);(Facial/Injetáveis) Fios absorvíveis para sustentação dos tecidos e estímulo de colágeno.;true
+procedimento;Limpeza de Pele Profunda;(Pele) Higienização profunda com extração, para renovar a pele.;true
+procedimento;Microagulhamento;(Pele) Estímulo de colágeno para cicatrizes, poros e textura da pele.;true
+procedimento;Peelings Químicos;(Pele) Renovação da pele com ácidos, indicada em protocolos de manchas e textura.;true
+procedimento;Protocolo Clareador / Tratamento para Melasma;(Pele) Protocolos para uniformizar o tom da pele e tratar melasma e manchas.;true
+procedimento;Acne Control (controle ativo de acne);(Pele) Protocolo para controle da acne e cuidado da pele acneica.;true
+procedimento;Tratamento de Cicatrizes;(Pele) Técnicas para atenuar cicatrizes, inclusive de acne.;true
+procedimento;Skin Booster / Hidratação Injetável;(Pele) Hidratação profunda injetável para viço e qualidade de pele.;true
+procedimento;Hidra Lips;(Pele) Hidratação e revitalização dos lábios.;true
+procedimento_nao_realizado;[PREENCHER] Procedimentos que a clínica NÃO realiza;Listar aqui, um por linha, os procedimentos que a IA nunca deve sugerir (ex.: cirurgias, preenchimentos específicos etc.).;true
+duvida_frequente;Dói?;Medo de dor é a objeção número 1. Sempre acolher e explicar os recursos de conforto.;true
+duvida_frequente;Quanto tempo dura o resultado?;Responder sempre com faixas gerais e reforçar que varia por pessoa — nunca prometer duração exata.;true
+duvida_frequente;Posso me maquiar / pegar sol depois?;Dúvida recorrente de pós-procedimento. Ótimo material educativo.;true
+duvida_frequente;Qual a diferença entre skinbooster e bioestimulador?;Confusão comum entre procedimentos injetáveis. Pauta educativa forte.;true
+tom_de_voz;Tom de voz da Dra. Simone;Acolhedor, próximo e didático. Linguagem de paciente, sem tecnicismo desnecessário. Explica com calma, nunca pressiona. Evita sensacionalismo e gírias forçadas. Trata a paciente por 'você'.;true
+restricao;Publicidade em saúde;[A VALIDAR com a Dra. Simone] Regras do Conselho Federal de Biomedicina: uso de antes/depois, depoimentos e divulgação de valores devem ser confirmados antes do go-live.;true
+cta_padrao;CTA padrão da clínica;Agende sua avaliação: chame no direct ou clique no link da bio.;true
