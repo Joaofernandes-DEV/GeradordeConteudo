@@ -256,7 +256,7 @@ function parsearRss(xml) {
   if (!canal) return [];
   return canal.getChildren('item').slice(0, CONFIG.ITENS_POR_FEED).map(function (item) {
     return {
-      titulo: item.getChildText('title') || '',
+      titulo: decodificarEntidades(item.getChildText('title') || ''),
       link: item.getChildText('link') || '',
       descricao: item.getChildText('description') || '',
       pubDate: item.getChildText('pubDate') || ''
@@ -276,6 +276,21 @@ function normalizar(texto) {
 function normalizarFonte(texto) {
   return String(texto || '').toLowerCase().normalize('NFD')
     .replace(/[̀-ͯ]/g, '').trim();
+}
+
+/**
+ * Converte entidades HTML em texto legível.
+ * O RSS entrega "&nbsp;" e "&#39;" crus, que apareciam literalmente no e-mail.
+ */
+function decodificarEntidades(texto) {
+  return String(texto || '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(Number(n)); })
+    .replace(/&amp;/gi, '&');
 }
 
 /**
@@ -317,7 +332,8 @@ function consolidarItens(brutos) {
     todos.push({
       titulo: item.titulo,
       link: item.link,
-      resumo: item.descricao.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, CONFIG.MAX_RESUMO),
+      resumo: decodificarEntidades(item.descricao.replace(/<[^>]*>/g, ' '))
+        .replace(/\s+/g, ' ').trim().slice(0, CONFIG.MAX_RESUMO),
       fonte: fonte,
       premium: ehPremium(fonte),
       data: item.pubDate,
@@ -818,11 +834,19 @@ function montarEmailHtml(contexto, pautaBase, pauta, descartados, checagem, corr
       '<p style="margin:0;"><em>Fala:</em> ' + escapar(s.orientacao_fala) + '</p></div>';
   }).join('');
 
+  // O RSS do Google News repete o título dentro da descrição. Sem esta checagem,
+  // a mesma frase aparecia duas vezes seguidas no e-mail.
+  const tituloNorm = normalizar(pautaBase.temaBase);
+  const resumoNorm = normalizar(pautaBase.resumoBase);
+  const resumoUtil = (resumoNorm && resumoNorm !== tituloNorm &&
+                      tituloNorm.indexOf(resumoNorm) !== 0 && resumoNorm.indexOf(tituloNorm) !== 0)
+    ? pautaBase.resumoBase : '';
+
   const radar = pautaBase.origem === 'radar'
     ? '<p><strong>' + escapar(pautaBase.temaBase) + '</strong></p>' +
       '<p style="margin:4px 0;">Fonte: ' + escapar(pautaBase.fonteBase) +
       (pautaBase.linkBase ? ' - <a href="' + escapar(pautaBase.linkBase) + '">ver notícia</a>' : '') + '</p>' +
-      '<p style="margin:4px 0;">' + escapar(pautaBase.resumoBase) + '</p>' +
+      (resumoUtil ? '<p style="margin:4px 0;">' + escapar(resumoUtil) + '</p>' : '') +
       (pautaBase.motivoSelecao
         ? '<p style="margin:4px 0;"><em>Por que é relevante:</em> ' + escapar(pautaBase.motivoSelecao) + '</p>'
         : '')
