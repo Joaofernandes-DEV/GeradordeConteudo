@@ -27,6 +27,7 @@ Este arquivo existe porque a parte mais instrutiva do projeto não foi o caminho
 | ~09/09/2026 | Todos os modelos de IA retornam 404 | ❌ |
 | 10/09/2026 | Google aposenta o modelo em uso para contas novas | ❌ |
 | 10/09/2026 | Autocorreção de modelo + suíte de testes em simulador | ✅ |
+| 10/09/2026 | Envio diário restabelecido e confirmado em produção | ✅ |
 
 ---
 
@@ -177,6 +178,8 @@ Please update your code to use models/gemini-3.6-flash
 - `testarModelos()` passou a testar de verdade, em vez de confiar na listagem.
 - Validação com simulador do Apps Script em Node: **22 verificações em 8 cenários**, incluindo a mensagem de erro real, cota esgotada, erro temporário e o caso em que nada responde.
 
+**Confirmado em produção:** o diagnóstico `testarModelos()` voltou a acusar modelo funcionando e o envio diário foi restabelecido no mesmo dia.
+
 **Lição:** listas fixas de nomes de modelo envelhecem, e a listagem oficial também engana. A única prova de disponibilidade é uma chamada real. Quem depende de LLM de terceiros precisa tratar troca de modelo como evento normal de operação, não como exceção.
 
 ---
@@ -191,7 +194,7 @@ Please update your code to use models/gemini-3.6-flash
 
 **Decisão:** migrar para Google Apps Script. O Radar é um script agendado linear, com três integrações e um usuário. A plataforma visual entregava um canvas bonito e cobrava por isso em assinatura, limite de operações e custo de migração.
 
-**Resultado:** custo zero, sem limite de operações, e a lógica em JavaScript foi aproveitada quase integralmente. O estudo do Make ficou documentado em [MIGRACAO-MAKE.md](MIGRACAO-MAKE.md).
+**Resultado:** custo zero, sem limite de operações, e a lógica em JavaScript foi aproveitada quase integralmente. O estudo do Make ficou documentado em [docs/migracao-make.md](docs/migracao-make.md).
 
 ### D2 — Planilha como banco de dados
 
