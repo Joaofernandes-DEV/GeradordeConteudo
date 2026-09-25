@@ -106,24 +106,19 @@ O que mudou em relação ao desenho inicial — e por quê:
 ## 5. Arquitetura
 
 ```mermaid
-flowchart TD
-    A["Gatilho diário<br/>Seg–Sáb · 6h"] --> B["Define o pilar editorial do dia"]
-    B --> C["Coleta paralela<br/>10 consultas RSS"]
-    C --> D["Normalização<br/>janela 48h · dedupe · ranking de fonte"]
-    D --> E["Histórico 30 dias<br/>Google Sheets"]
-    E --> F{"IA · Analista de relevância<br/>nota 0–10 · corte 7"}
-    F -->|Nada atingiu o corte| G["Fallback<br/>banco de temas atemporais"]
-    F -->|Item aprovado| H["Melhor pauta do dia"]
-    G --> I
-    H --> I["Enriquecimento<br/>procedimentos · tom de voz · histórico"]
-    I --> J["IA · Estrategista e redatora<br/>pauta com 5 Stories"]
-    J --> K{"Guardrails<br/>verificação por regras"}
-    K -->|Reprovado| L["IA · Revisora"]
-    L --> M
-    K -->|Aprovado| M["Montagem do e-mail HTML"]
-    M --> N["Envio via Gmail"]
-    N --> O["Registro no histórico"]
-    O -.->|alimenta a deduplicação| E
+flowchart LR
+    A["⏰ Gatilho<br/>Seg–Sáb · 6h"] --> B["📥 Coleta<br/>10 feeds RSS"]
+    B --> C["🧹 Normalização<br/>48h · dedupe · ranking de fonte"]
+    C --> D{"🔍 IA · Analista<br/>nota 0–10 · corte 7"}
+    D -->|nada atingiu o corte| E["📚 Fallback<br/>banco evergreen"]
+    D -->|melhor item do dia| F["✍️ IA · Redatora<br/>pauta com 5 Stories"]
+    E --> F
+    F --> G{"🛡️ Guardrails<br/>regras determinísticas"}
+    G -->|reprovado| H["🔧 IA · Revisora"]
+    H --> G
+    G -->|aprovado| I["📧 E-mail"]
+    I --> J["🗂️ Histórico"]
+    J -.->|alimenta dedupe e prompt| C
 ```
 
 ### Calendário editorial
