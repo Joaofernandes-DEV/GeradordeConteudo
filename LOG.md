@@ -28,6 +28,7 @@ Este arquivo existe porque a parte mais instrutiva do projeto não foi o caminho
 | 10/09/2026 | Google aposenta o modelo em uso para contas novas | ❌ |
 | 10/09/2026 | Autocorreção de modelo + suíte de testes em simulador | ✅ |
 | 10/09/2026 | Envio diário restabelecido e confirmado em produção | ✅ |
+| 25/09/2026 | Print do e-mail real expõe 3 defeitos de apresentação, corrigidos no mesmo dia | ✅ |
 
 ---
 
@@ -184,6 +185,22 @@ Please update your code to use models/gemini-3.6-flash
 
 ---
 
+### E10 — Defeitos visíveis só no e-mail entregue
+
+**Sintoma:** ao revisar um print real do e-mail recebido pela profissional, três problemas de apresentação apareceram de uma vez:
+
+1. `&nbsp;&nbsp;` aparecia literalmente no meio do resumo da notícia
+2. o campo "por que é relevante" dizia *"O item 0 se encaixa perfeitamente no pilar de Educação"* — o índice interno da lista vazando para a leitora
+3. o resumo repetia, palavra por palavra, o título da notícia logo acima
+
+**Causa raiz:** a limpeza do RSS removia tags HTML mas não decodificava entidades; o prompt pedia o campo "motivo" sem proibir referência ao índice, e o modelo adotou o vocabulário do JSON; e o RSS do Google News devolve a descrição idêntica ao título, que o e-mail imprimia duas vezes.
+
+**Correção:** decodificação de entidades aplicada a título e resumo, regra explícita no prompt do filtro ("o campo motivo é lido por uma pessoa: nunca cite índices ou a palavra item") e supressão do resumo quando ele coincide com o título. Tudo coberto por 9 testes automatizados.
+
+**Lição:** o pipeline pode estar tecnicamente correto e o produto final ainda parecer amador. Nenhum log acusaria esses três defeitos — eles só aparecem olhando o e-mail como a cliente vê. Revisar o artefato entregue, e não apenas a execução, precisa fazer parte do ciclo.
+
+---
+
 ## Decisões estruturais
 
 ### D1 — Sair da plataforma de automação
@@ -227,10 +244,18 @@ O modelo demonstrou entender o encaixe no pilar do dia, não apenas o tema: esco
 
 ---
 
-## Pendências conhecidas
+## Melhorias mapeadas
 
-- [ ] Trocar o e-mail de destino pelo da profissional no go-live definitivo
-- [ ] Preencher a lista de procedimentos que a clínica **não** realiza
-- [ ] Converter as regras de publicidade do Conselho Federal de Biomedicina em restrições explícitas do prompt
-- [ ] Validar com a profissional as descrições dos 24 procedimentos
-- [ ] Concluir a fase de calibração: marcar cada pauta como usei / adaptei / descartei no histórico
+O sistema está em produção e cumprindo o objetivo. O que segue são evoluções já identificadas — oportunidades de deixar a curadoria mais precisa e as travas mais completas.
+
+**Com a profissional**
+
+- Apontar o envio direto para o e-mail dela, encerrando a fase de acompanhamento em cópia
+- Cadastrar a lista de procedimentos que a clínica **não** realiza, fechando mais uma trava contra sugestão fora de escopo
+- Converter as regras de publicidade do Conselho Federal de Biomedicina em restrições explícitas do prompt
+- Revisar com ela as descrições dos 24 procedimentos, para a IA escrever com o vocabulário que ela usa no consultório
+
+**No produto**
+
+- Concluir a calibração marcando cada pauta como *usei / adaptei / descartei* no histórico, e usar esse retorno para ajustar a nota de corte e os prompts
+- Enriquecer o resumo das notícias buscando o corpo da matéria, em vez de depender só do trecho do RSS
